@@ -10,6 +10,9 @@ gospelgps_logo.svg
 # Claude Code local settings
 .claude/
 
+# Re-downloaded on demand by tools/verify-verses.py — no need to store it
+tools/kjv-gutenberg.txt
+
 # Windows / editor noise
 Thumbs.db
 desktop.ini
