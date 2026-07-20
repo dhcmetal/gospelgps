@@ -1,0 +1,37 @@
+{
+  "name": "GospelGPS — Gospel Presentation Helper",
+  "short_name": "GospelGPS",
+  "description": "A step-by-step companion for presenting the gospel of Jesus Christ from the King James Bible. Works offline.",
+  "id": "/gospelgps/",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b1a38",
+  "theme_color": "#0b1a38",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": ["education", "books", "lifestyle"],
+  "icons": [
+    { "src": "icons/icon-192.png",  "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-256.png",  "sizes": "256x256", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-384.png",  "sizes": "384x384", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png",  "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Start a Presentation",
+      "short_name": "Present",
+      "url": "./index.html#present",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Verse Map",
+      "short_name": "Verses",
+      "url": "./index.html#map",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

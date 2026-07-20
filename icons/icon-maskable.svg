@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- Maskable variant: full-bleed navy square with the badge scaled into the
+       safe zone, so Android can crop it to a circle/squircle without clipping. -->
+  <defs>
+    <radialGradient id="sq" cx="50%" cy="38%" r="80%">
+      <stop offset="0%" stop-color="#1e3a6e"/>
+      <stop offset="60%" stop-color="#14284f"/>
+      <stop offset="100%" stop-color="#0b1a38"/>
+    </radialGradient>
+    <radialGradient id="bg" cx="50%" cy="38%" r="75%">
+      <stop offset="0%" stop-color="#1e3a6e"/>
+      <stop offset="60%" stop-color="#14284f"/>
+      <stop offset="100%" stop-color="#0b1a38"/>
+    </radialGradient>
+    <linearGradient id="pin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffd76a"/>
+      <stop offset="55%" stop-color="#f6b93b"/>
+      <stop offset="100%" stop-color="#e28a12"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffd76a"/>
+      <stop offset="100%" stop-color="#e28a12"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="22" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect x="0" y="0" width="1024" height="1024" fill="url(#sq)"/>
+
+  <g transform="translate(512 512) scale(0.76) translate(-512 -512)">
+    <circle cx="512" cy="512" r="500" fill="url(#bg)"/>
+    <circle cx="512" cy="512" r="500" fill="none" stroke="url(#ring)" stroke-width="24"/>
+
+    <g stroke="#8fb4ff" stroke-opacity="0.10" stroke-width="6" fill="none">
+      <ellipse cx="512" cy="512" rx="470" ry="180"/>
+      <ellipse cx="512" cy="512" rx="470" ry="330"/>
+      <ellipse cx="512" cy="512" rx="180" ry="470"/>
+      <ellipse cx="512" cy="512" rx="330" ry="470"/>
+      <line x1="42" y1="512" x2="982" y2="512"/>
+      <line x1="512" y1="42" x2="512" y2="982"/>
+    </g>
+
+    <path d="M 200 850 C 330 830 300 700 420 690 C 540 680 560 620 512 560"
+          fill="none" stroke="#9fd0ff" stroke-width="18" stroke-linecap="round"
+          stroke-dasharray="4 44" opacity="0.9"/>
+    <circle cx="200" cy="850" r="26" fill="#9fd0ff"/>
+    <circle cx="200" cy="850" r="12" fill="#0b1a38"/>
+
+    <g filter="url(#soft)">
+      <path fill="url(#pin)" fill-rule="evenodd" d="
+        M 512 148
+        C 380 148 274 254 274 386
+        C 274 486 340 570 420 656
+        C 462 701 496 742 512 792
+        C 528 742 562 701 604 656
+        C 684 570 750 486 750 386
+        C 750 254 644 148 512 148
+        Z
+        M 482 250
+        L 542 250
+        L 542 330
+        L 622 330
+        L 622 390
+        L 542 390
+        L 542 540
+        L 482 540
+        L 482 390
+        L 402 390
+        L 402 330
+        L 482 330
+        Z"/>
+    </g>
+
+    <ellipse cx="512" cy="812" rx="70" ry="16" fill="#f6b93b" opacity="0.35"/>
+  </g>
+</svg>

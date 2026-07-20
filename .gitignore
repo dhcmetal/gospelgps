@@ -1,0 +1,19 @@
+# Source material and working notes — kept on this computer, not published.
+# The sermon transcripts are someone else's preaching; publishing them here
+# would redistribute them, so they stay out of the public repository.
+*.srt.txt
+CLAUDE.md
+docs/
+gospelgps_profile.jpg
+gospelgps_logo.svg
+
+# Claude Code local settings
+.claude/
+
+# Windows / editor noise
+Thumbs.db
+desktop.ini
+.DS_Store
+*.swp
+.vscode/
+.idea/
