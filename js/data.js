@@ -691,5 +691,5 @@ const VERSE_OF_DAY = [
   "John 1:12", "John 10:28", "Romans 10:13", "Luke 15:10", "Romans 10:17"
 ];
 
-/* Placeholder until the real Buy Me a Coffee link is supplied. */
-const SUPPORT_URL = "https://www.buymeacoffee.com/CHANGE-ME";
+/* Opens in a new tab. No payment processing happens inside this app. */
+const SUPPORT_URL = "https://buymeacoffee.com/gospelgps";
