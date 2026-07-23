@@ -22,6 +22,7 @@ SOURCE = "https://www.gutenberg.org/cache/epub/10/pg10.txt"
 
 # Project Gutenberg book headings -> the short names used in the app
 BOOKS = {
+    "The Gospel According to Saint Matthew": "Matthew",
     "The Gospel According to Saint Mark": "Mark",
     "The Gospel According to Saint Luke": "Luke",
     "The Gospel According to Saint John": "John",

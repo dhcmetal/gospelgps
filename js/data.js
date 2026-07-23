@@ -116,7 +116,13 @@ const KJV = {
     "So then faith cometh by hearing, and hearing by the word of God.",
 
   "Luke 15:10":
-    "Likewise, I say unto you, there is joy in the presence of the angels of God over one sinner that repenteth."
+    "Likewise, I say unto you, there is joy in the presence of the angels of God over one sinner that repenteth.",
+
+  "Matthew 7:22":
+    "Many will say to me in that day, Lord, Lord, have we not prophesied in thy name? and in thy name have cast out devils? and in thy name done many wonderful works?",
+
+  "Matthew 7:23":
+    "And then will I profess unto them, I never knew you: depart from me, ye that work iniquity."
 };
 
 /* Multi-verse passages, so a card like "Acts 16:30-31" shows both verses. */
@@ -126,7 +132,8 @@ const PASSAGES = {
   "1 Corinthians 15:3-4": ["1 Corinthians 15:3", "1 Corinthians 15:4"],
   "Acts 16:30-31": ["Acts 16:30", "Acts 16:31"],
   "Ephesians 2:8-9": ["Ephesians 2:8", "Ephesians 2:9"],
-  "John 11:25-26": ["John 11:25", "John 11:26"]
+  "John 11:25-26": ["John 11:25", "John 11:26"],
+  "Matthew 7:22-23": ["Matthew 7:22", "Matthew 7:23"]
 };
 
 /* Returns [{ref, text}] for any reference, single verse or passage. */
@@ -179,7 +186,7 @@ const STEPS = [
     title: "Everyone is a sinner",
     goal: "The listener admits: “I have sinned.”",
     beats: [
-      { say: "The Bible teaches that everyone’s a sinner — nobody is righteous on their own. It says in Romans 3:23:", verse: "Romans 3:23" }
+      { say: "You’ve sinned, I’ve sinned — the Bible says every single person has, and nobody’s righteous on their own. It says in Romans 3:23:", verse: "Romans 3:23" }
     ],
     bridge: [
       "“So what’s the payment for sin?”"
@@ -213,9 +220,9 @@ const STEPS = [
     title: "The penalty for sin is death and hell",
     goal: "The listener understands sin has a punishment — physical death, and after that hell, the second death — and that the list includes ordinary sins like lying.",
     beats: [
-      { say: "Sin has a penalty. The first half of this verse says the wages of sin is death — we die physically.", verse: "Romans 6:23", note: "Read the first half only." },
-      { say: "But that’s not the end. The Bible says there’s a second death — and that second death is hell." },
-      { say: "Here’s who ends up there — and it isn’t just murderers. It says “all liars,” and everyone has told a lie.", verse: "Revelation 21:8" }
+      { say: "Your sin has a penalty. The first half of this verse says the wages of sin is death — we all die physically.", verse: "Romans 6:23", note: "Read the first half only." },
+      { say: "But that’s not the end. The Bible talks about a second death — and that second death is hell." },
+      { say: "Here’s who ends up there — and it isn’t just murderers. It says “all liars,” and you and I have both told a lie.", verse: "Revelation 21:8" }
     ],
     bridge: [
       "“God wasn’t just kidding when He said that.”",
@@ -257,7 +264,7 @@ const STEPS = [
     title: "Jesus loves you and died for you",
     goal: "The listener sees that God is proving His love here: we are all sinners, and Christ died for us anyway — taking the punishment we deserve.",
     beats: [
-      { say: "Here God proves how much He loves you: while we were still sinners, Christ died for us — taking the punishment we deserved.", verse: "Romans 5:8" }
+      { say: "The good news is God loves you. While you were still a sinner, Christ died for you — taking the punishment you deserved. That’s Romans 5:8:", verse: "Romans 5:8" }
     ],
     bridge: [
       "“Now let me tell you who Jesus is.”"
@@ -292,8 +299,8 @@ const STEPS = [
     title: "Who is Jesus?",
     goal: "Don’t assume they know. Make sure they understand who died for them.",
     beats: [
-      { say: "Jesus is the Son of God — God in the flesh. He lived a perfect life none of us could, and He preached the word of God." },
-      { say: "Many hated His preaching, so He was arrested, beaten, and nailed to the cross." }
+      { say: "Jesus is the Son of God — God in the flesh. He lived a perfect life you and I never could, and He preached the word of God." },
+      { say: "Many hated His preaching, so He was arrested, beaten, and nailed to the cross for your sins." }
     ],
     bridge: [
       "“But it didn’t end at the cross.”"
@@ -359,8 +366,8 @@ const STEPS = [
     title: "What must we do to be saved? BELIEVE.",
     goal: "The listener understands salvation is by faith alone in Christ — not church, not living a good life, not turning from sins, not works.",
     beats: [
-      { say: "Someone in the Bible asked this very question. The answer is simply “believe” — not join a church, not live a good life.", verse: "Acts 16:30-31", note: "Point out what it does NOT say." },
-      { say: "Most people know this verse. Let them say it — then ask what it says we must do.", verse: "John 3:16", note: "Let them finish it, then ask." }
+      { say: "Someone in the Bible asked that very question — what must I do to be saved? The answer was simply “believe” — not go to church, not clean up your life.", verse: "Acts 16:30-31", note: "Point out what it does NOT say." },
+      { say: "You’ve probably heard this one. It doesn’t say “whosoever is good enough” — it says “whosoever believeth.”", verse: "John 3:16", note: "Let them finish it, then ask." }
     ],
     bridge: [
       "“Now — once you’re saved, how long does it last?”"
@@ -392,6 +399,12 @@ const STEPS = [
         cue: "Believe ON Christ — not just that He is",
         reply: "Draw the distinction between believing God exists and believing ON the Lord Jesus Christ — trusting Him alone to save you.",
         verses: ["John 6:47", "John 3:18"]
+      },
+      {
+        heard: "“I’m a good person — my good works count”",
+        cue: "“Lord, Lord…” — they trusted works, and were turned away",
+        reply: "Jesus warned that many will stand before Him listing all the good works they did — and He’ll say, “I never knew you.” They were trusting their works instead of Him. Being saved is trusting Christ alone, not yourself.",
+        verses: ["Matthew 7:22-23"]
       }
     ],
     tip: "Spend real time here. This is where the whole plan turns.",
@@ -404,8 +417,8 @@ const STEPS = [
     title: "Eternal security: once saved, always saved",
     goal: "The listener understands salvation is a free gift of eternal life. If it could be lost, it wouldn’t be eternal — and it wouldn’t be by faith.",
     beats: [
-      { say: "Now the second half of that earlier verse: eternal life is a free gift — you don’t earn it, and you can’t un-earn it.", verse: "Romans 6:23", note: "Now the second half." },
-      { say: "When you believe, you become a child of God — a child He corrects, but never throws out of the family.", verse: "John 1:12" }
+      { say: "Now the second half of that earlier verse: eternal life is a free gift. Eternal means forever — so how many times do you need it? Just once, and you can never un-earn it.", verse: "Romans 6:23", note: "Now the second half." },
+      { say: "When you believe, you become God’s child. If you sin, He’ll correct you like a father — but He’ll never throw you out of the family.", verse: "John 1:12" }
     ],
     bridge: [
       "“Let me go back over it with you.”"
@@ -472,7 +485,7 @@ const STEPS = [
     prayer: "Dear Jesus, I know I’m a sinner. I know I deserve to go to hell. But I believe that you died on the cross for all my sins and rose again. Please save me right now and give me eternal life. I’m only trusting you, Jesus. Amen.",
     prayerNote: "The exact words aren’t magic — the faith is what matters.",
     afterPrayer: "“You meant that, didn’t you? So where does the Bible say you’re going? And why?”  — answer: heaven, because I believed on Christ.",
-    afterPrayerTip: "Confirm positively. Don’t plant doubt with “Did you really mean that?” in a skeptical tone.",
+    afterPrayerTip: "Confirm positively — don’t plant doubt with a skeptical “Did you really mean that?” Then point them forward: now that they’re saved, they have two choices — keep living the old way (still saved, but under God’s chastening and missing His blessing), or start growing through a good church, reading the Bible, and following the Lord, and be blessed.",
     tip: "On the last review question: if their answer is works-based, they didn’t get it — kindly show one more “believe” verse and graciously end. If they didn’t get it, ending graciously is a win too. A seed is planted.",
     check: "Did they pray and call on the Lord?"
   }
