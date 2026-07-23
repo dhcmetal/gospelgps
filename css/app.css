@@ -278,7 +278,88 @@ a { color: var(--gold-300); }
 .votd cite { display: block; margin-top: 8px; font-style: normal; color: var(--gold-400); font-weight: 700; font-size: .8rem; letter-spacing: .05em; }
 
 /* ---------- Present mode ---------- */
-.present-head { margin-bottom: 14px; }
+
+/* While a presentation is live the door is a fixed, no-scroll shell:
+   the tab bar hides, and the step fills the screen between the top bar
+   and the controls. One idea per page — you tap through. */
+body.presenting { overflow: hidden; }
+body.presenting #tabbar { display: none; }
+body.presenting #app {
+  height: calc(100dvh - var(--topbar-h) - env(safe-area-inset-top));
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+}
+body.presenting #screen-present {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--pad);
+  box-sizing: border-box;
+  animation: none;
+}
+
+.present-head { flex: 0 0 auto; margin-bottom: 10px; }
+.ph-title { flex: 1 1 auto; min-width: 0; }
+.help-btn {
+  flex: 0 0 auto;
+  width: var(--tap);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--sky);
+  font-weight: 800;
+  font-size: 1.2em;
+}
+
+/* Progress dots — where you are within this step. */
+.dots { display: flex; gap: 7px; margin-top: 12px; }
+.dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(255, 255, 255, .16);
+  transition: background .25s ease, transform .25s ease;
+}
+.dot.done { background: var(--gold-400); opacity: .5; }
+.dot.on { background: var(--gold-300); transform: scale(1.4); }
+
+/* The reading area fills the space and centres its one idea; a wordy
+   beat (e.g. the wrap-up review) scrolls inside here, never the page. */
+.present-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+}
+.beat { width: 100%; margin: auto 0; }
+.beat-say {
+  font-size: calc(var(--fs) * 1.22);
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  margin: 0 0 16px;
+}
+.beat .verse-card { margin-bottom: 0; }
+.beat-transition {
+  padding: 16px 18px;
+  border-radius: var(--r-md);
+  background: rgba(159, 208, 255, .07);
+  border: 1px solid rgba(159, 208, 255, .25);
+  border-left: 3px solid var(--sky);
+}
+
+/* Controls, pinned to the bottom within thumb reach. */
+.present-foot {
+  flex: 0 0 auto;
+  display: grid;
+  gap: 10px;
+  padding-top: 12px;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 4px);
+}
+.present-foot .btn { min-height: 54px; font-size: 1.02em; }
+.present-foot .btn-row { display: flex; gap: 10px; }
+.present-foot .btn-row .btn { flex: 1; min-height: 42px; font-size: .9em; }
+
 .progress-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 .ring { width: 54px; height: 54px; flex: 0 0 auto; }
 .ring circle { fill: none; stroke-width: 5; stroke-linecap: round; }
@@ -832,6 +913,11 @@ label.field > span { display: block; font-size: .82em; color: var(--text-dim); m
 }
 @keyframes rise { from { transform: translateY(100%); } to { transform: none; } }
 .sheet h2 { margin-bottom: 12px; }
+.sheet-title {
+  font-size: 1.14em;
+  font-weight: 700;
+  margin: 0 0 14px;
+}
 .grabber { width: 40px; height: 4px; border-radius: 2px; background: var(--text-mut); margin: -6px auto 14px; opacity: .5; }
 
 /* ---------- Celebration ---------- */

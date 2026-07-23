@@ -33,21 +33,32 @@ function checkRef(ref, where) {
 }
 
 STEPS.forEach(s => {
-  const core = (s.verses || []).map(v => v.ref);
+  // What actually appears on screen during this step: the beat verses,
+  // plus the legacy core-verse list the Verse Map still reads.
+  const shown = new Set([
+    ...(s.verses || []).map(v => v.ref),
+    ...(s.beats  || []).filter(b => b.verse).map(b => b.verse)
+  ]);
 
   (s.verses || []).forEach(v => checkRef(v.ref, `Step ${s.id} core`));
   (s.more   || []).forEach(v => checkRef(v.ref, `Step ${s.id} more`));
+  (s.beats  || []).forEach(b => { if (b.verse) checkRef(b.verse, `Step ${s.id} beat`); });
 
   (s.objections || []).forEach(o => {
     (o.verses || []).forEach(r => {
       checkRef(r, `Step ${s.id} objection`);
       // A pushback panel should add scripture, not repeat what's already on screen.
-      if (core.includes(r)) fail(`Step ${s.id} objection "${o.heard}" repeats core verse ${r}`);
+      if (shown.has(r)) fail(`Step ${s.id} objection "${o.heard}" repeats a verse already shown: ${r}`);
     });
   });
 
-  if (!s.cues || !s.cues.length) fail(`Step ${s.id} has no cues`);
-  if (s.cues && s.cues.length > 5) fail(`Step ${s.id} has ${s.cues.length} cues (max 5)`);
+  // Every step is a flow of one-idea "beat" pages.
+  if (!s.beats || !s.beats.length) fail(`Step ${s.id} has no beats`);
+  (s.beats || []).forEach((b, i) => {
+    if (!b.say && !b.verse && !b.review && !b.prayer)
+      fail(`Step ${s.id} beat ${i} is empty (needs say, verse, review or prayer)`);
+  });
+  if (s.cues) fail(`Step ${s.id} still has an orphaned "cues" field`);
   if (s.id !== 8 && (!s.bridge || !s.bridge.length)) fail(`Step ${s.id} has no bridge`);
   if (s.transition) fail(`Step ${s.id} still has an orphaned "transition" field`);
 });
@@ -72,6 +83,7 @@ const mark = ref => (PASSAGES[ref] || [ref]).forEach(p => used.add(p));
 STEPS.forEach(s => {
   (s.verses || []).forEach(v => mark(v.ref));
   (s.more   || []).forEach(v => mark(v.ref));
+  (s.beats  || []).forEach(b => { if (b.verse) mark(b.verse); });
   (s.objections || []).forEach(o => (o.verses || []).forEach(mark));
 });
 SIMULATOR.forEach(s => s.choices.forEach(c => mark(c.ref)));

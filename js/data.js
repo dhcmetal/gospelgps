@@ -145,11 +145,9 @@ const STEPS = [
     label: "Opening",
     title: "Starting the conversation",
     goal: "Get permission to show them the Bible — and find out whether they know for sure.",
-    cues: [
-      "“Do you go to church anywhere?”",
-      "“More important than church — if you died today, do you know for sure you’d go to heaven?”",
-      "Not sure → “Can I take 5–10 minutes and show you from the Bible?”",
-      "Sure → “What do you think it takes to get to heaven?”"
+    beats: [
+      { say: "“Do you go to church anywhere?”" },
+      { say: "“More important than church — if you died today, do you know for sure you’d go to heaven?”" }
     ],
     bridge: [
       "“Perfect — let me show you.”",
@@ -180,11 +178,8 @@ const STEPS = [
     label: "Step 1",
     title: "Everyone is a sinner",
     goal: "The listener admits: “I have sinned.”",
-    cues: [
-      "We’ve all sinned — you, me, everyone",
-      "Read Romans 3:10 — none righteous",
-      "Read Romans 3:23 — all have sinned",
-      "99% agree — don’t belabor it"
+    beats: [
+      { say: "The Bible teaches that everyone’s a sinner — nobody is righteous on their own. It says in Romans 3:23:", verse: "Romans 3:23" }
     ],
     bridge: [
       "“So what’s the payment for sin?”"
@@ -217,11 +212,10 @@ const STEPS = [
     label: "Step 2",
     title: "The penalty for sin is death and hell",
     goal: "The listener understands sin has a punishment — physical death, and after that hell, the second death — and that the list includes ordinary sins like lying.",
-    cues: [
-      "There’s a payment due for sin: death",
-      "Read Romans 6:23 — first half only",
-      "Then a second death — the lake of fire",
-      "Read Revelation 21:8 — even “all liars”"
+    beats: [
+      { say: "Sin has a penalty. The first half of this verse says the wages of sin is death — we die physically.", verse: "Romans 6:23", note: "Read the first half only." },
+      { say: "But that’s not the end. The Bible says there’s a second death — and that second death is hell." },
+      { say: "Here’s who ends up there — and it isn’t just murderers. It says “all liars,” and everyone has told a lie.", verse: "Revelation 21:8" }
     ],
     bridge: [
       "“God wasn’t just kidding when He said that.”",
@@ -262,11 +256,8 @@ const STEPS = [
     label: "Step 3",
     title: "Jesus loves you and died for you",
     goal: "The listener sees that God is proving His love here: we are all sinners, and Christ died for us anyway — taking the punishment we deserve.",
-    cues: [
-      "God is proving His love right here",
-      "We’re all sinners — He died for us anyway",
-      "Read Romans 5:8",
-      "Warm your tone — this is the good news"
+    beats: [
+      { say: "Here God proves how much He loves you: while we were still sinners, Christ died for us — taking the punishment we deserved.", verse: "Romans 5:8" }
     ],
     bridge: [
       "“Now let me tell you who Jesus is.”"
@@ -300,11 +291,9 @@ const STEPS = [
     label: "Step 4",
     title: "Who is Jesus?",
     goal: "Don’t assume they know. Make sure they understand who died for them.",
-    cues: [
-      "The Son of God — God in the flesh",
-      "Lived a sinless life none of us could live",
-      "Arrested, beaten, spat on, nailed to the cross",
-      "They already know Him? Keep it short"
+    beats: [
+      { say: "Jesus is the Son of God — God in the flesh. He lived a perfect life none of us could, and He preached the word of God." },
+      { say: "Many hated His preaching, so He was arrested, beaten, and nailed to the cross." }
     ],
     bridge: [
       "“But it didn’t end at the cross.”"
@@ -335,11 +324,8 @@ const STEPS = [
     label: "Step 5",
     title: "The death, burial, and resurrection",
     goal: "The listener understands Christ died, was buried, and rose again bodily three days later.",
-    cues: [
-      "He died, was buried, rose the third day",
-      "Bodily — He showed them the holes in His hands",
-      "Read 1 Corinthians 15:3–4",
-      "This is the crux of the gospel"
+    beats: [
+      { say: "He died, was buried, and three days later rose again bodily — He walked out of the grave and showed them the holes in His hands.", verse: "1 Corinthians 15:3-4" }
     ],
     bridge: [
       "“Jesus died for everybody — so does everyone automatically go to heaven?”",
@@ -372,10 +358,9 @@ const STEPS = [
     label: "Step 6",
     title: "What must we do to be saved? BELIEVE.",
     goal: "The listener understands salvation is by faith alone in Christ — not church, not living a good life, not turning from sins, not works.",
-    cues: [
-      "Salvation is by believing — not church, not works",
-      "Read Acts 16:30–31 — note what it does NOT say",
-      "Read John 3:16 — let them quote it"
+    beats: [
+      { say: "Someone in the Bible asked this very question. The answer is simply “believe” — not join a church, not live a good life.", verse: "Acts 16:30-31", note: "Point out what it does NOT say." },
+      { say: "Most people know this verse. Let them say it — then ask what it says we must do.", verse: "John 3:16", note: "Let them finish it, then ask." }
     ],
     bridge: [
       "“Now — once you’re saved, how long does it last?”"
@@ -418,12 +403,9 @@ const STEPS = [
     label: "Step 7",
     title: "Eternal security: once saved, always saved",
     goal: "The listener understands salvation is a free gift of eternal life. If it could be lost, it wouldn’t be eternal — and it wouldn’t be by faith.",
-    cues: [
-      "A free gift — Jesus paid it all",
-      "If you could lose it, it was never eternal",
-      "Read Romans 6:23 — the second half now",
-      "Read John 1:12 — you become His child",
-      "Chastened on earth, never sent to hell"
+    beats: [
+      { say: "Now the second half of that earlier verse: eternal life is a free gift — you don’t earn it, and you can’t un-earn it.", verse: "Romans 6:23", note: "Now the second half." },
+      { say: "When you believe, you become a child of God — a child He corrects, but never throws out of the family.", verse: "John 1:12" }
     ],
     bridge: [
       "“Let me go back over it with you.”"
@@ -466,11 +448,11 @@ const STEPS = [
     label: "Step 8",
     title: "The wrap-up: review questions and prayer",
     goal: "Confirm they truly understand, then lead them to call on the Lord.",
-    cues: [
-      "Work down the review questions below",
-      "Read Romans 10:13 — call on the Lord",
-      "Don’t ask if they want to pray — lead them",
-      "“I want to pray with you and help you tell God that’s what you believe. Just repeat after me.”"
+    beats: [
+      { review: true, say: "Work down these review questions before you pray." },
+      { say: "Don’t ask “Do you want to pray?” — lead them: “I want to pray with you right now and help you tell God that’s what you believe. You can just repeat after me. Let’s pray.”", verse: "Romans 10:13", note: "Call upon the name of the Lord." },
+      { prayer: true, say: "Pray with them — have them repeat after you." },
+      { say: "“You meant that, didn’t you? So where does the Bible say you’re going? And why?” — heaven, because I believed on Christ." }
     ],
     say: [
       "Work down the review questions below before you pray.",

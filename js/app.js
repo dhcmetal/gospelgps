@@ -94,6 +94,7 @@ let current = "home";
 
 function go(screen, opts = {}) {
   current = screen;
+  document.body.classList.remove("presenting");   // renderPresent re-adds it
   $$(".screen").forEach(s => { s.hidden = s.dataset.screen !== screen; });
   $$("#tabbar .tab").forEach(t => t.classList.toggle("is-active", t.dataset.goto === screen));
   $("#topTitle").textContent = TITLES[screen] || "GospelGPS";
@@ -102,11 +103,7 @@ function go(screen, opts = {}) {
   RENDER[screen](opts);
 }
 
-$$("#tabbar .tab").forEach(t => t.addEventListener("click", () => {
-  const dest = t.dataset.goto;
-  if (dest === "present" && presentActive()) { renderPresent(); return; }
-  go(dest);
-}));
+$$("#tabbar .tab").forEach(t => t.addEventListener("click", () => go(t.dataset.goto)));
 
 $("#backBtn").addEventListener("click", () => go("home"));
 
@@ -196,7 +193,7 @@ let P = null;                                     // active presentation state
 function presentActive() { return P !== null && !P.finished; }
 
 function startPresentation() {
-  P = { step: 0, started: Date.now(), pushback: {}, checked: {}, finished: false };
+  P = { step: 0, beat: 0, started: Date.now(), pushback: {}, checked: {}, finished: false };
 }
 
 function ringSVG(stepId) {
@@ -213,123 +210,153 @@ function ringSVG(stepId) {
     </svg>`;
 }
 
+function beatCount(step) { return (step.beats || []).length; }
+
+function reviewChecklistHTML(step) {
+  return `
+    <div class="card"><div class="card-title">Review questions</div>
+      <ul class="checklist">
+        ${step.review.map((r, i) => `
+          <li class="${P.checked[i] ? "done" : ""}">
+            <button data-check="${i}">
+              <span class="box">${P.checked[i] ? "✓" : ""}</span>
+              <span>${r.q}${r.a ? `<span class="ans">${r.a}</span>` : ""}</span>
+            </button>
+          </li>`).join("")}
+      </ul>
+    </div>`;
+}
+
+function prayerBlockHTML(step) {
+  return `
+    <div class="card">
+      <div class="card-title">Pray with them — “repeat after me”</div>
+      <div class="prayer">${step.prayer}</div>
+      <p class="tiny muted center" style="margin-top:10px">${step.prayerNote}</p>
+    </div>`;
+}
+
+/* Everything wordy — fuller wording, the answer branches, coaching,
+   and backup verses — lives behind the “?”, one tap away on any beat. */
+function helpSheetHTML(step) {
+  return `
+    <h3 class="sheet-title">Notes &amp; coaching</h3>
+    ${step.say && step.say.length
+      ? `<div class="card flat"><div class="card-title">What to say</div>
+           <ul class="say-list">${step.say.map(s => `<li>${s}</li>`).join("")}</ul></div>`
+      : ""}
+    ${step.branches
+      ? `<div class="card flat"><div class="card-title">If they answer…</div>
+           ${step.branches.map(b => `
+             <div style="margin-bottom:14px">
+               <div style="font-weight:700;color:var(--sky);margin-bottom:4px">${b.heard}</div>
+               <div>${b.reply}</div>
+             </div>`).join("")}
+         </div>`
+      : ""}
+    ${step.more && step.more.length
+      ? `<div class="card flat"><div class="card-title">More verses</div>
+           ${step.more.map(v => verseCard(v.ref, v.note, false)).join("")}</div>`
+      : ""}
+    <div class="tipbox"><b>Coaching</b><br>${step.tip}</div>
+    ${step.afterPrayerTip
+      ? `<div class="tipbox" style="margin-top:12px"><b>After the prayer</b><br>${step.afterPrayerTip}</div>`
+      : ""}`;
+}
+
+function openHelp() { openSheet(helpSheetHTML(STEPS[P.step])); }
+function openPushback() {
+  const step = STEPS[P.step];
+  P.pushback[step.id] = true;
+  openSheet(`<h3 class="sheet-title">They’re pushing back</h3>` + objectionHTML(step));
+}
+
+/* Back flows into the previous step's last content beat. */
+function stepBack() {
+  if (P.beat > 0) { P.beat--; }
+  else if (P.step > 0) { P.step--; P.beat = Math.max(0, beatCount(STEPS[P.step]) - 1); }
+  renderPresent();
+}
+
 function renderPresent() {
   if (!P) startPresentation();
   if (P.finished) { renderOutcome(); return; }
 
+  document.body.classList.add("presenting");
+
   const step = STEPS[P.step];
-  const showPush = !!P.pushback[step.id];
+  const beats = step.beats || [];
+  const isLastStep = P.step === STEPS.length - 1;
+
+  /* Pages within a step = the content beats, plus one transition
+     "checkpoint" page for steps 0–7 (the agree / pushback moment).
+     The last step ends on its final beat with Finish & log. */
+  const transitionPage = isLastStep ? -1 : beats.length;
+  const lastPage = isLastStep ? beats.length - 1 : beats.length;
+  if (P.beat > lastPage) P.beat = lastPage;
+  if (P.beat < 0) P.beat = 0;
+
+  const onTransition = P.beat === transitionPage;
   const box = $("#screen-present");
 
-  /* The cues are the only thing meant to be read mid-conversation:
-     a glance, not a paragraph. */
-  const cuesHTML = (step.cues || []).length
-    ? `<ul class="cues">${step.cues.map(c => `<li>${c}</li>`).join("")}</ul>`
-    : "";
+  /* One progress dot per page in this step. */
+  const dots = Array.from({ length: lastPage + 1 }, (_, i) =>
+    `<span class="dot${i === P.beat ? " on" : i < P.beat ? " done" : ""}"></span>`).join("");
 
-  const versesHTML = step.verses.length
-    ? `<div>${step.verses.map(v => verseCard(v.ref, v.note, true)).join("")}</div>`
-    : "";
+  let bodyHTML;
+  if (onTransition) {
+    const lines = [step.check].concat(step.bridge || []).filter(Boolean);
+    bodyHTML = `
+      <div class="beat beat-transition">
+        <div class="bridge-label">Move on when they’ve got it</div>
+        ${lines.map((line, i, arr) =>
+          `<p class="bridge-line${i === arr.length - 1 && arr.length > 1 ? " pivot" : ""}">${line}</p>`
+        ).join("")}
+      </div>`;
+  } else {
+    const beat = beats[P.beat] || {};
+    bodyHTML = `
+      <div class="beat">
+        ${beat.review ? reviewChecklistHTML(step) : ""}
+        ${beat.say ? `<p class="beat-say">${beat.say}</p>` : ""}
+        ${beat.verse ? verseCard(beat.verse, beat.note, true) : ""}
+        ${beat.prayer ? prayerBlockHTML(step) : ""}
+      </div>`;
+  }
 
-  const moreHTML = step.more && step.more.length
-    ? `<details class="more"><summary>More verses (${step.more.length})</summary>
-         <div style="margin-top:8px">${step.more.map(v => verseCard(v.ref, v.note, false)).join("")}</div>
-       </details>`
-    : "";
-
-  /* Everything wordy lives behind one tap — for learning, or when you get stuck. */
-  const notesHTML = `
-    <details class="more notes">
-      <summary>Notes &amp; coaching</summary>
-      <div class="notes-body">
-        ${step.say.length
-          ? `<div class="card flat"><div class="card-title">What to say</div>
-               <ul class="say-list">${step.say.map(s => `<li>${s}</li>`).join("")}</ul></div>`
-          : ""}
-        ${step.branches
-          ? `<div class="card flat"><div class="card-title">If they answer…</div>
-               ${step.branches.map(b => `
-                 <div style="margin-bottom:14px">
-                   <div style="font-weight:700;color:var(--sky);margin-bottom:4px">${b.heard}</div>
-                   <div>${b.reply}</div>
-                 </div>`).join("")}
-             </div>`
-          : ""}
-        <div class="tipbox"><b>Coaching</b><br>${step.tip}</div>
-        ${step.afterPrayerTip
-          ? `<div class="tipbox" style="margin-top:12px"><b>After the prayer</b><br>${step.afterPrayerTip}</div>`
-          : ""}
-      </div>
-    </details>`;
-
-  const objHTML = showPush ? objectionHTML(step) : "";
-
-  const reviewHTML = step.review
-    ? `<div class="card"><div class="card-title">Review questions</div>
-         <ul class="checklist">
-           ${step.review.map((r, i) => `
-             <li class="${P.checked[i] ? "done" : ""}">
-               <button data-check="${i}">
-                 <span class="box">${P.checked[i] ? "✓" : ""}</span>
-                 <span>${r.q}${r.a ? `<span class="ans">${r.a}</span>` : ""}</span>
-               </button>
-             </li>`).join("")}
-         </ul>
-       </div>`
-    : "";
-
-  const prayerHTML = step.prayer
-    ? `<div class="card">
-         <div class="card-title">Pray with them — “repeat after me”</div>
-         <div class="prayer">${step.prayer}</div>
-         <p class="tiny muted center" style="margin-top:10px">${step.prayerNote}</p>
-       </div>`
-    : "";
-
-  /* The bridge: confirm they got it, then the words that carry you to the next step.
-     The method teaches this as a short question-and-agreement exchange, not a statement. */
-  const isLast = P.step === STEPS.length - 1;
-  const bridgeLines = isLast
-    ? [step.afterPrayer]
-    : [step.check].concat(step.bridge || []);
-
-  const bridgeHTML = `
-    <div class="bridge">
-      <div class="bridge-label">${isLast ? "After the prayer" : "Move on when they’ve got it"}</div>
-      ${bridgeLines.filter(Boolean).map((line, i, arr) =>
-        `<p class="bridge-line${i === arr.length - 1 && !isLast && arr.length > 1 ? " pivot" : ""}">${line}</p>`
-      ).join("")}
-    </div>`;
+  let primary;
+  if (onTransition) {
+    primary = `
+      <button class="btn btn-agree" data-act="agree">They agree ✓ &nbsp;— next step</button>
+      <button class="btn btn-push" data-act="pushback">They’re pushing back</button>`;
+  } else if (isLastStep && P.beat === lastPage) {
+    primary = `<button class="btn btn-primary" data-act="finish">Finish &amp; log this ✓</button>`;
+  } else {
+    primary = `<button class="btn btn-primary" data-act="next">Next ›</button>`;
+  }
 
   box.innerHTML = `
     <div class="present-head">
       <div class="progress-row">
         ${ringSVG(step.id)}
-        <div>
+        <div class="ph-title">
           <div class="step-kicker">${esc(step.label)}</div>
           <h2 class="step-title">${esc(step.title)}</h2>
         </div>
+        <button class="icon-btn help-btn" data-act="help" aria-label="Notes and coaching" title="Notes &amp; coaching">?</button>
       </div>
+      <div class="dots">${dots}</div>
     </div>
 
-    ${cuesHTML}
-    ${versesHTML}
-    ${moreHTML}
-    ${objHTML}
-    ${reviewHTML}
-    ${prayerHTML}
+    <div class="present-body" id="presentBody">
+      ${bodyHTML}
+    </div>
 
-    ${notesHTML}
-
-    ${bridgeHTML}
-
-    <div class="respond">
-      ${isLast
-        ? `<button class="btn btn-primary" data-act="finish">Finish &amp; log this ✓</button>`
-        : `<button class="btn btn-agree" data-act="next">They agree ✓ &nbsp;— next step</button>
-           ${showPush ? "" : `<button class="btn btn-push" data-act="push">They’re pushing back</button>`}`}
+    <div class="present-foot">
+      ${primary}
       <div class="btn-row">
-        <button class="btn btn-quiet btn-sm" data-act="back" ${P.step === 0 ? "disabled" : ""}>‹ Back</button>
+        <button class="btn btn-quiet btn-sm" data-act="back" ${P.step === 0 && P.beat === 0 ? "disabled" : ""}>‹ Back</button>
+        ${onTransition ? "" : `<button class="btn btn-quiet btn-sm" data-act="pushback">Pushback?</button>`}
         <button class="btn btn-quiet btn-sm" data-act="end">End &amp; log</button>
       </div>
     </div>
@@ -337,17 +364,30 @@ function renderPresent() {
 
   box.querySelectorAll("[data-act]").forEach(b => b.addEventListener("click", () => {
     const a = b.dataset.act;
-    if (a === "next") { P.step = Math.min(P.step + 1, STEPS.length - 1); renderPresent(); window.scrollTo(0, 0); }
-    if (a === "back") { P.step = Math.max(P.step - 1, 0); renderPresent(); window.scrollTo(0, 0); }
-    if (a === "push") { P.pushback[step.id] = true; renderPresent(); }
+    if (a === "next")  { P.beat++; renderPresent(); }
+    if (a === "agree") { P.step = Math.min(P.step + 1, STEPS.length - 1); P.beat = 0; renderPresent(); }
+    if (a === "back")  { stepBack(); }
+    if (a === "help")  { openHelp(); }
+    if (a === "pushback") { openPushback(); }
     if (a === "finish" || a === "end") { P.finished = true; renderOutcome(); }
   }));
 
   box.querySelectorAll("[data-check]").forEach(b => b.addEventListener("click", () => {
-    const i = b.dataset.check;
-    P.checked[i] = !P.checked[i];
+    P.checked[b.dataset.check] = !P.checked[b.dataset.check];
     renderPresent();
   }));
+
+  /* Swipe left/right on the reading area = next / back. */
+  const bodyEl = $("#presentBody");
+  let x0 = null;
+  bodyEl.addEventListener("touchstart", e => { x0 = e.changedTouches[0].clientX; }, { passive: true });
+  bodyEl.addEventListener("touchend", e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    x0 = null;
+    if (dx < -45) { const n = box.querySelector('[data-act="next"]'); if (n) n.click(); }
+    else if (dx > 45) { const p = box.querySelector('[data-act="back"]:not([disabled])'); if (p) p.click(); }
+  }, { passive: true });
 }
 
 function objectionHTML(step) {
@@ -372,6 +412,7 @@ function objectionHTML(step) {
 /* ---------- outcome logging (target: under 10 seconds) ---------- */
 
 function renderOutcome() {
+  document.body.classList.remove("presenting");   // outcome scrolls normally
   const box = $("#screen-present");
   box.innerHTML = `
     <h2>How did it go?</h2>
