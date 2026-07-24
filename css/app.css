@@ -339,6 +339,15 @@ body.presenting #screen-present {
   letter-spacing: -.01em;
   margin: 0 0 16px;
 }
+/* A quieter "if they say… → say this" line under the main cue. */
+.beat-aside {
+  margin: -6px 0 16px;
+  padding-left: 12px;
+  border-left: 2px solid rgba(159, 208, 255, .35);
+  color: var(--text-mut);
+  font-size: var(--fs);
+  line-height: 1.4;
+}
 .beat .verse-card { margin-bottom: 0; }
 .beat-transition {
   padding: 16px 18px;

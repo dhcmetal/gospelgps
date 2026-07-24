@@ -153,16 +153,16 @@ const STEPS = [
     title: "Starting the conversation",
     goal: "Get permission to show them the Bible — and find out whether they know for sure.",
     beats: [
-      { say: "“Do you go to church anywhere?”" },
-      { say: "“More important than church — if you died today, do you know for sure you’d go to heaven?”" }
+      { say: "Ease in naturally, then ask the real question: “If you died today, do you know for sure you’d go to heaven?”",
+        aside: "If they’re not sure: “Can I take 5 minutes and show you from the Bible how you can know for sure?”" }
     ],
     bridge: [
-      "“Perfect — let me show you.”",
-      "“The first thing the Bible says is that we’ve all sinned.”"
+      "“Great — let me show you what the Bible says.”",
+      "“It starts with the fact that we’ve all sinned.”"
     ],
     say: [
-      "“Do you go to church anywhere?”",
-      "“Do you know for sure, if you died today, would you go to heaven?”"
+      "A natural way in: “Do you go to church anywhere?” or “Are you a Christian?”",
+      "Then the real question: “If you died today, do you know for sure you’d go to heaven?”"
     ],
     verses: [],
     more: [],
@@ -177,7 +177,7 @@ const STEPS = [
       }
     ],
     tip: "Be kind, never smug. The goal of the whole presentation is to use the Bible and make it easy to understand — a logical path from A to B to C, never jumping around.",
-    check: "Have they given you permission to show them the Bible?"
+    check: "Are they open to seeing what the Bible says?"
   },
 
   {
