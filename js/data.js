@@ -420,7 +420,7 @@ const STEPS = [
     title: "Eternal security: once saved, always saved",
     goal: "The listener understands salvation is a free gift of eternal life. If it could be lost, it wouldn’t be eternal — and it wouldn’t be by faith.",
     beats: [
-      { say: "Now the second half of that earlier verse: eternal life is a free gift. Eternal means forever — so how many times do we need it? Just once, and we can never un-earn it.", verse: "Romans 6:23", note: "Now the second half." },
+      { say: "Eternal life is a free gift — we don’t earn it, and Jesus paid it all. Romans 6:23 says:", verse: "Romans 6:23", part: "second", sayBelow: "And eternal means forever — so how many times do we need it? Just once, and we can never lose it." },
       { say: "When we believe, we become God’s children. If we sin, He corrects us like a father — but He’ll never throw us out of the family.", verse: "John 1:12" }
     ],
     bridge: [
