@@ -49,6 +49,9 @@ const KJV = {
   "Mark 9:48":
     "Where their worm dieth not, and the fire is not quenched.",
 
+  "Romans 4:5":
+    "But to him that worketh not, but believeth on him that justifieth the ungodly, his faith is counted for righteousness.",
+
   "Romans 5:8":
     "But God commendeth his love toward us, in that, while we were yet sinners, Christ died for us.",
 
@@ -370,6 +373,9 @@ const STEPS = [
     goal: "The listener understands salvation is by faith alone in Christ — not church, not living a good life, not turning from sins, not works.",
     beats: [
       { say: "Someone in the Bible asked that very question — what must I do to be saved? The answer was simply “believe” — not go to church, not clean up our lives.", verse: "Acts 16:30-31", note: "Point out what it does NOT say." },
+      { say: "But believing is more than just knowing Jesus is real — it’s trusting in Him alone, resting on what He did on the cross to save us, not on anything we do." },
+      { say: "That’s why the Bible says we’re saved by grace through faith — a free gift, not something we earn:", verse: "Ephesians 2:8-9", sayBelow: "Not of works — so no one can boast about earning it." },
+      { say: "It even says the one who stops working for it and simply believes has his faith counted as righteousness:", verse: "Romans 4:5" },
       { say: "You’ve probably heard this one. It doesn’t say “whosoever is good enough” — it says “whosoever believeth.”", verse: "John 3:16", note: "Let them finish it, then ask." }
     ],
     bridge: [
@@ -381,10 +387,11 @@ const STEPS = [
     ],
     verses: [
       { ref: "Acts 16:30-31", note: "Point out what it does NOT say." },
-      { ref: "John 3:16", note: "Let them quote it — then ask what it says to do." }
+      { ref: "John 3:16", note: "Let them quote it — then ask what it says to do." },
+      { ref: "Ephesians 2:8-9" },
+      { ref: "Romans 4:5" }
     ],
     more: [
-      { ref: "Ephesians 2:8-9", note: "Pick one more “believe” verse of your choice." },
       { ref: "John 6:47" },
       { ref: "John 5:24" },
       { ref: "John 3:18" },
@@ -394,8 +401,7 @@ const STEPS = [
       {
         heard: "“Don’t I have to be good / get baptized?”",
         cue: "Grace through faith — not of works",
-        reply: "Not for salvation. Grace through faith, not of works, lest any man should boast. Good works are a fine thing — they just aren’t what saves.",
-        verses: ["Ephesians 2:8-9"]
+        reply: "Not for salvation. Grace through faith, not of works, lest any man should boast. Good works and baptism are fine things — they just aren’t what saves."
       },
       {
         heard: "“I already believe in God”",

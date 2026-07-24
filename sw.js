@@ -5,7 +5,7 @@
    IMPORTANT FOR FUTURE UPDATES: bump CACHE_VERSION whenever any app file changes,
    otherwise phones will keep showing the old cached version. */
 
-const CACHE_VERSION = "gospelgps-v20";
+const CACHE_VERSION = "gospelgps-v21";
 
 const ASSETS = [
   "./",
