@@ -222,12 +222,11 @@ const STEPS = [
     beats: [
       { say: "In Romans 6:23, the Bible says the penalty for our sin is death — a physical death:", verse: "Romans 6:23", part: "first" },
       { say: "But that’s not the end. The Bible talks about a second death — and that second death is hell." },
-      { say: "Revelation 21:8 says:", verse: "Revelation 21:8", sayBelow: "See — hell is the second death. You might not be a murderer, but everyone has lied, and the verse says all liars." }
+      { say: "Revelation 21:8 says:", verse: "Revelation 21:8", sayBelow: "See — hell is the second death. You might not be a murderer, but we’ve all lied, and the verse says all liars." }
     ],
     bridge: [
-      "“God wasn’t just kidding when He said that.”",
-      "“But God loves you — does He want you to go there?”",
-      "“So here’s what He did to save you.”"
+      "“But God loves us — He doesn’t want us to go there.”",
+      "“So here’s what He did to save us.”"
     ],
     say: [
       "There’s a payment due for sin. The first half of this verse tells you what it is.",
@@ -255,7 +254,7 @@ const STEPS = [
       }
     ],
     tip: "Don’t be harsh here. You’re showing them the diagnosis so the cure makes sense.",
-    check: "“So where does that verse say we deserve to go?”"
+    check: "“So according to the Bible, I deserve hell and you deserve hell.”"
   },
 
   {
@@ -264,7 +263,7 @@ const STEPS = [
     title: "Jesus loves you and died for you",
     goal: "The listener sees that God is proving His love here: we are all sinners, and Christ died for us anyway — taking the punishment we deserve.",
     beats: [
-      { say: "The good news is God loves you. While you were still a sinner, Christ died for you — taking the punishment you deserved. That’s Romans 5:8:", verse: "Romans 5:8" }
+      { say: "Even though we’re all sinners who deserve hell, Jesus took that punishment for us. Here’s Romans 5:8:", verse: "Romans 5:8" }
     ],
     bridge: [
       "“Now let me tell you who Jesus is.”"
@@ -300,7 +299,7 @@ const STEPS = [
     goal: "Don’t assume they know. Make sure they understand who died for them.",
     beats: [
       { say: "Jesus is the Son of God — God in the flesh. He lived a perfect life you and I never could, and He preached the word of God." },
-      { say: "Many hated His preaching, so He was arrested, beaten, and nailed to the cross for your sins." }
+      { say: "Many hated His preaching, so He was arrested, beaten, and nailed to the cross for our sins." }
     ],
     bridge: [
       "“But it didn’t end at the cross.”"
@@ -366,11 +365,11 @@ const STEPS = [
     title: "What must we do to be saved? BELIEVE.",
     goal: "The listener understands salvation is by faith alone in Christ — not church, not living a good life, not turning from sins, not works.",
     beats: [
-      { say: "Someone in the Bible asked that very question — what must I do to be saved? The answer was simply “believe” — not go to church, not clean up your life.", verse: "Acts 16:30-31", note: "Point out what it does NOT say." },
+      { say: "Someone in the Bible asked that very question — what must I do to be saved? The answer was simply “believe” — not go to church, not clean up our lives.", verse: "Acts 16:30-31", note: "Point out what it does NOT say." },
       { say: "You’ve probably heard this one. It doesn’t say “whosoever is good enough” — it says “whosoever believeth.”", verse: "John 3:16", note: "Let them finish it, then ask." }
     ],
     bridge: [
-      "“Now — once you’re saved, how long does it last?”"
+      "“Now — once we’re saved, how long does it last?”"
     ],
     say: [
       "Somebody in the Bible asked this exact question. Look at the answer they got.",
@@ -417,8 +416,8 @@ const STEPS = [
     title: "Eternal security: once saved, always saved",
     goal: "The listener understands salvation is a free gift of eternal life. If it could be lost, it wouldn’t be eternal — and it wouldn’t be by faith.",
     beats: [
-      { say: "Now the second half of that earlier verse: eternal life is a free gift. Eternal means forever — so how many times do you need it? Just once, and you can never un-earn it.", verse: "Romans 6:23", note: "Now the second half." },
-      { say: "When you believe, you become God’s child. If you sin, He’ll correct you like a father — but He’ll never throw you out of the family.", verse: "John 1:12" }
+      { say: "Now the second half of that earlier verse: eternal life is a free gift. Eternal means forever — so how many times do we need it? Just once, and we can never un-earn it.", verse: "Romans 6:23", note: "Now the second half." },
+      { say: "When we believe, we become God’s children. If we sin, He corrects us like a father — but He’ll never throw us out of the family.", verse: "John 1:12" }
     ],
     bridge: [
       "“Let me go back over it with you.”"

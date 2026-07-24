@@ -437,12 +437,12 @@ body.presenting #screen-present {
   margin-bottom: 9px;
 }
 .bridge-line {
-  margin: 0 0 9px;
+  margin: 0 0 11px;
   padding-left: 16px;
   position: relative;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: calc(var(--fs) * 1.06);
-  line-height: 1.42;
+  font-size: calc(var(--fs) * 1.16);
+  line-height: 1.45;
+  color: var(--text);
 }
 .bridge-line::before {
   content: "›";
