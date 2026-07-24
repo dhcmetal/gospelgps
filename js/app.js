@@ -56,8 +56,20 @@ function closeCelebrate() { $("#celebrate").hidden = true; $("#celebrate").inner
    Verse rendering
    ========================================================= */
 
-function verseCard(ref, note, open) {
-  const vs = versesFor(ref);
+function verseCard(ref, note, open, part) {
+  let vs = versesFor(ref);
+  /* Some verses are read a clause at a time — e.g. Romans 6:23's first half
+     ("...the wages of sin is death") in Step 2, the second half in Step 7.
+     The full verse stays the source of truth (and stays verified); this just
+     shows the requested clause, split at the semicolon. */
+  if (part && vs.length === 1 && vs[0].text.indexOf(";") > -1) {
+    const full = vs[0].text;
+    const i = full.indexOf(";");
+    const half = part === "first"
+      ? full.slice(0, i).trim() + "."
+      : "…" + full.slice(i + 1).trim();
+    vs = [{ ref: vs[0].ref, text: half }];
+  }
   const multi = vs.length > 1;
   const body = vs.map(v =>
     `<p class="verse-text">${multi ? `<span class="vn">${v.ref.split(":").pop()}</span>` : ""}${v.text}</p>`
@@ -320,7 +332,7 @@ function renderPresent() {
         ${beat.review ? reviewChecklistHTML(step) : ""}
         ${beat.say ? `<p class="beat-say">${beat.say}</p>` : ""}
         ${beat.aside ? `<p class="beat-aside">${beat.aside}</p>` : ""}
-        ${beat.verse ? verseCard(beat.verse, beat.note, true) : ""}
+        ${beat.verse ? verseCard(beat.verse, beat.note, true, beat.part) : ""}
         ${beat.prayer ? prayerBlockHTML(step) : ""}
       </div>`;
   }

@@ -220,7 +220,7 @@ const STEPS = [
     title: "The penalty for sin is death and hell",
     goal: "The listener understands sin has a punishment — physical death, and after that hell, the second death — and that the list includes ordinary sins like lying.",
     beats: [
-      { say: "Your sin has a penalty. The first half of this verse says the wages of sin is death — we all die physically.", verse: "Romans 6:23", note: "Read the first half only." },
+      { say: "In Romans 6:23, the Bible says the penalty for our sin is death — a physical death:", verse: "Romans 6:23", part: "first" },
       { say: "But that’s not the end. The Bible talks about a second death — and that second death is hell." },
       { say: "Here’s who ends up there — and it isn’t just murderers. It says “all liars,” and you and I have both told a lie.", verse: "Revelation 21:8" }
     ],
