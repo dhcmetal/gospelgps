@@ -222,7 +222,7 @@ const STEPS = [
     beats: [
       { say: "In Romans 6:23, the Bible says the penalty for our sin is death — a physical death:", verse: "Romans 6:23", part: "first" },
       { say: "But that’s not the end. The Bible talks about a second death — and that second death is hell." },
-      { verse: "Revelation 21:8", aside: "See — you might not be a murderer, but the verse says “all liars,” and everyone’s lied before." }
+      { say: "Revelation 21:8 says:", verse: "Revelation 21:8", sayBelow: "See — hell is the second death. You might not be a murderer, but everyone has lied, and the verse says all liars." }
     ],
     bridge: [
       "“God wasn’t just kidding when He said that.”",

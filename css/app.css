@@ -349,6 +349,8 @@ body.presenting #screen-present {
   line-height: 1.4;
 }
 .beat .verse-card { margin-bottom: 0; }
+/* A readable line placed under the verse (same look as .beat-say). */
+.beat-say--below { margin: 14px 0 0; }
 .beat-transition {
   padding: 16px 18px;
   border-radius: var(--r-md);

@@ -332,6 +332,7 @@ function renderPresent() {
         ${beat.review ? reviewChecklistHTML(step) : ""}
         ${beat.say ? `<p class="beat-say">${beat.say}</p>` : ""}
         ${beat.verse ? verseCard(beat.verse, beat.note, true, beat.part) : ""}
+        ${beat.sayBelow ? `<p class="beat-say beat-say--below">${beat.sayBelow}</p>` : ""}
         ${beat.aside ? `<p class="beat-aside">${beat.aside}</p>` : ""}
         ${beat.prayer ? prayerBlockHTML(step) : ""}
       </div>`;
