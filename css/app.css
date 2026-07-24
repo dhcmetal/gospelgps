@@ -341,7 +341,7 @@ body.presenting #screen-present {
 }
 /* A quieter "if they say… → say this" line under the main cue. */
 .beat-aside {
-  margin: -6px 0 16px;
+  margin: 10px 0 0;
   padding-left: 12px;
   border-left: 2px solid rgba(159, 208, 255, .35);
   color: var(--text-mut);
