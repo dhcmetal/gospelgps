@@ -298,8 +298,10 @@ const STEPS = [
     title: "Who is Jesus?",
     goal: "Don’t assume they know. Make sure they understand who died for them.",
     beats: [
-      { say: "Jesus is the Son of God — God in the flesh. He lived a perfect life you and I never could, and He preached the word of God." },
-      { say: "Many hated His preaching, so He was arrested, beaten, and nailed to the cross for our sins." }
+      { say: "Jesus is the Son of God — God Himself, come to earth in the flesh. He was born of a virgin and lived a perfect, sinless life that none of us could live." },
+      { say: "He proved who He was by what He did — He healed the sick, walked on water, turned water into wine, and even raised the dead." },
+      { say: "He went everywhere preaching the word of God. But people hated the truth He preached, so they had Him arrested." },
+      { say: "They beat Him, spat on Him, and nailed Him to the cross — and there He took our place. The Bible says it like this:", verse: "1 Peter 2:24", sayBelow: "Every sin you’ve ever done, every sin I’ve ever done — on that cross, it was as if Jesus had done it." }
     ],
     bridge: [
       "“But it didn’t end at the cross.”"
@@ -309,7 +311,9 @@ const STEPS = [
       "He lived a perfect life none of us could live, performed miracles, and preached the word of God.",
       "Many hated His preaching. He was arrested, beaten, spat upon, and nailed to the cross."
     ],
-    verses: [],
+    verses: [
+      { ref: "1 Peter 2:24" }
+    ],
     more: [
       { ref: "John 1:14", note: "Optional — if it helps show that Jesus is God in the flesh." }
     ],
