@@ -335,7 +335,7 @@ const STEPS = [
     title: "The death, burial, and resurrection",
     goal: "The listener understands Christ died, was buried, and rose again bodily three days later.",
     beats: [
-      { say: "He died, was buried, and three days later rose again bodily — He walked out of the grave and showed them the holes in His hands.", verse: "1 Corinthians 15:3-4" }
+      { say: "He died, was buried, and three days later He rose again bodily — He walked out of that tomb alive.", verse: "1 Corinthians 15:3-4" }
     ],
     bridge: [
       "“Jesus died for everybody — so does everyone automatically go to heaven?”",
@@ -343,7 +343,7 @@ const STEPS = [
     ],
     say: [
       "He died, He was buried, and three days later He rose again.",
-      "He walked out of that grave and showed them the holes in His hands — a real, bodily resurrection, not just a spiritual one."
+      "He walked out of that tomb alive — a real, bodily resurrection, not just a spiritual one."
     ],
     verses: [
       { ref: "1 Corinthians 15:3-4" }
