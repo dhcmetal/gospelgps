@@ -1103,7 +1103,20 @@ go(RENDER[startScreen] ? startScreen : "home");
 maybeShowInstall();
 
 if ("serviceWorker" in navigator) {
+  /* When a republished version takes over, reload once so the new code shows
+     up on its own. Guarded so the first-ever visit (no prior controller) and
+     repeat reloads don't loop. */
+  const hadController = !!navigator.serviceWorker.controller;
+  let reloaded = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (reloaded || !hadController) return;
+    reloaded = true;
+    location.reload();
+  });
+
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("sw.js").catch(err => console.warn("Offline mode unavailable:", err));
+    navigator.serviceWorker.register("sw.js")
+      .then(reg => reg.update())               // check for a new version each launch
+      .catch(err => console.warn("Offline mode unavailable:", err));
   });
 }

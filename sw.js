@@ -5,7 +5,7 @@
    IMPORTANT FOR FUTURE UPDATES: bump CACHE_VERSION whenever any app file changes,
    otherwise phones will keep showing the old cached version. */
 
-const CACHE_VERSION = "gospelgps-v14";
+const CACHE_VERSION = "gospelgps-v15";
 
 const ASSETS = [
   "./",
@@ -44,9 +44,11 @@ self.addEventListener("activate", event => {
 });
 
 /* Fetch strategy:
-   - Navigations: try the network first (so a republished update is picked up),
-     fall back to the cached page when there's no signal.
-   - Everything else: serve from cache first for instant, offline-safe loads. */
+   - App code (the page itself + js/css/manifest): NETWORK-FIRST, so a republished
+     update is picked up as soon as there's signal. Falls back to the cached copy
+     when offline, so it still works at a door with no signal.
+   - Static assets (icons/images): cache-first for instant, offline-safe loads —
+     they don't change between versions. */
 self.addEventListener("fetch", event => {
   const req = event.request;
   if (req.method !== "GET") return;
@@ -54,15 +56,21 @@ self.addEventListener("fetch", event => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;   // never touch outside requests
 
-  if (req.mode === "navigate") {
+  const isNavigate = req.mode === "navigate";
+  const isCode = isNavigate || /\.(?:html|js|css|webmanifest)$/.test(url.pathname);
+  const cacheKey = isNavigate ? "./index.html" : req;
+
+  if (isCode) {
     event.respondWith(
       fetch(req)
         .then(res => {
-          const copy = res.clone();
-          caches.open(CACHE_VERSION).then(c => c.put("./index.html", copy));
+          if (res && res.status === 200 && res.type === "basic") {
+            const copy = res.clone();
+            caches.open(CACHE_VERSION).then(c => c.put(cacheKey, copy));
+          }
           return res;
         })
-        .catch(() => caches.match("./index.html").then(r => r || caches.match("./")))
+        .catch(() => caches.match(cacheKey).then(r => r || caches.match("./index.html")))
     );
     return;
   }
